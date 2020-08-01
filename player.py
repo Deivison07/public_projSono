@@ -22,6 +22,7 @@ class player():
 
         self.mediaList = self.player.media_list_new()
         self.reprodutorInstance = self.player.media_player_new()
+        self.reprodutorInstance2 = self.player.media_player_new()
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
         event_manager = self.reprodutorInstance.event_manager()
         event_manager.event_attach(vlc.EventType.MediaPlayerPlaying, self.reproduzindo)
@@ -58,8 +59,10 @@ class player():
         self.midia.parse() # essaa função tem que ser execultada para que os dados possam ser obtidos
 
         self.reprodutorInstance.set_media(self.midia)
+        self.reprodutorInstance2.set_media(self.midia)
 
         self.reprodutorInstance.play()
+        self.reprodutorInstance2.play()
     
     def play(self):
         if self.reprodutorInstance.is_playing():
