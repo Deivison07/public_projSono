@@ -11,7 +11,6 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow, player.player):
 
 
 
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
