@@ -1,7 +1,7 @@
 import vlc 
 from PyQt5 import QtWidgets,QtGui
 from TelaInicial import Ui_MainWindow
-
+import time
 
 class player():
 
@@ -22,6 +22,7 @@ class player():
         self.slideMusica.sliderReleased.connect(self.slideReleased)
         self.slideMusica.sliderMoved.connect(self.mudartempo)
 
+        self.comboMusica.currentIndexChanged.connect(self.mudarFaixaDeAudio)
 
         self.player = vlc.Instance()
 
@@ -75,7 +76,27 @@ class player():
 
         self.reprodutorInstance.set_media(self.midia)
         self.reprodutorInstance.play()
+
+        time.sleep(0.5)
+        self.audios = self.reprodutorInstance.audio_get_track_description()
+        self.legendas = self.reprodutorInstance.video_get_spu_description()
+
+        self.comboMusica.clear()
+        self.comboLegenda.clear()
+
+        audio =[list(Tuple) for Tuple in self.audios]
         
+        legendas =[list(Tuple) for Tuple in self.legendas]
+
+        for faixas_audio in audio:
+            self.comboMusica.addItem(faixas_audio[1].decode('UTF-8'))
+        
+        for faixas_legenda in legendas:
+            self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
+
+
+        self.comboMusica.setCurrentIndex(1)
+        self.comboLegenda.setCurrentIndex(1)
         '''
         #segundo reprodutor
         self.reprodutorInstance2.set_media(self.midia)
@@ -135,5 +156,11 @@ class player():
         self.reprodutorInstance.set_position(arg/100)
 
     def fimdaReproducao(self,event):
-
         self.slideMusica.setValue(0)
+    
+    def mudarFaixaDeAudio(self,arg):
+        if arg == 0:
+            self.reprodutorInstance.audio_set_track(-1) # é usado -1 porque o vlc usa esse indice para desabilitar o audio
+
+        else:
+            self.reprodutorInstance.audio_set_track(arg)

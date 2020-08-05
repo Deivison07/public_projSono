@@ -9,8 +9,6 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow, player.player):
         self.setupUi(self)
         player.player.__init__(self)
 
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

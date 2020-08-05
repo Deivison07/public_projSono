@@ -232,7 +232,7 @@
                  </property>
                  <item>
                   <property name="text">
-                   <string>Cantada</string>
+                   <string comment="654" extracomment="684">Cantada</string>
                   </property>
                  </item>
                  <item>
