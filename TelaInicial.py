@@ -50,6 +50,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.slideMusica = QtWidgets.QSlider(self.groupBox_2)
         self.slideMusica.setMinimumSize(QtCore.QSize(314, 22))
+        self.slideMusica.setPageStep(1)
         self.slideMusica.setOrientation(QtCore.Qt.Horizontal)
         self.slideMusica.setObjectName("slideMusica")
         self.verticalLayout_5.addWidget(self.slideMusica)
@@ -244,7 +245,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Player"))
-        self.comboMusica.setItemText(0, _translate("MainWindow", "Cantada"))
+        self.comboMusica.setItemText(0, _translate("MainWindow", "Cantada", "654"))
         self.comboMusica.setItemText(1, _translate("MainWindow", "Playback"))
         self.comboLegenda.setCurrentText(_translate("MainWindow", "Normal"))
         self.comboLegenda.setItemText(0, _translate("MainWindow", "Normal"))

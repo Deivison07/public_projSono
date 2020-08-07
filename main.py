@@ -8,6 +8,7 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow, player.player):
         super().__init__()
         self.setupUi(self)
         player.player.__init__(self)
+        
 
 if __name__ == "__main__":
     import sys

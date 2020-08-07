@@ -2,12 +2,21 @@ import vlc
 from PyQt5 import QtWidgets,QtGui
 from TelaInicial import Ui_MainWindow
 import time
+import asyncio
+from banco import banco
+from PyQt5.QtCore import pyqtSlot, QTimer
 
+    
 class player():
 
     def __init__(self):
+        #banco de dados
+        self.bancoDeDados = banco()
 
         self.listaDeMidia = []
+
+        self.timer = QTimer(self)
+        
 
         self.botaoAdicionar.clicked.connect(self.adicionarExterno) # conector botaoAdicionar para função adicionarExterno
         self.botaoRemover.clicked.connect(self.removerItemDePlayList) # conector botaoRemover para função removerItemDePlayList
@@ -21,12 +30,20 @@ class player():
         self.slideMusica.sliderPressed.connect(self.slidePressed)
         self.slideMusica.sliderReleased.connect(self.slideReleased)
         self.slideMusica.sliderMoved.connect(self.mudartempo)
+        self.comboMusica.activated.connect(self.mudarFaixaDeAudio)
+        self.comboLegenda.activated.connect(self.mudarFaixaDeLegenda)
 
-        self.comboMusica.currentIndexChanged.connect(self.mudarFaixaDeAudio)
+        self.areaBusca.returnPressed.connect(self.busca)
+        self.listaBanco.itemDoubleClicked.connect(self.midiaParaReproduzirVindoDoBanco)
+        self.botaoAdicionar_2.clicked.connect(self.itemDoBancoParaPlaylist)
+        self.listaBanco.itemClicked.connect(self.itemClicadoBanco)
+
+        self.botaoProximo.clicked.connect(self.informacaoMidia)
+
 
         self.player = vlc.Instance()
 
-        self.mediaList = self.player.media_list_new()
+        #self.mediaList = self.player.media_list_new()
         self.reprodutorInstance = self.player.media_player_new()
         self.reprodutorInstance2 = self.player.media_player_new()
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
@@ -36,7 +53,7 @@ class player():
         event_manager.event_attach(vlc.EventType.MediaPlayerMuted, self.mute)
         event_manager.event_attach(vlc.EventType.MediaPlayerPositionChanged,self.tempo)
         event_manager.event_attach(vlc.EventType.MediaPlayerEndReached,self.fimdaReproducao)
-         
+        #event_manager.event_attach(vlc.EventType.MediaPlayerBuffering,self.teste)
 
         self.slideMusicaPressionado = 0
 
@@ -68,6 +85,10 @@ class player():
 
         arq = self.listaDeMidia[self.listaPlaylist.row(arg)] 
         self.reprodutor(arq)
+    
+    def midiaParaReproduzirVindoDoBanco(self,arg):
+        arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
+        self.reprodutor(arq)
 
     def reprodutor(self,arg):
         
@@ -75,33 +96,42 @@ class player():
         self.midia.parse() # essaa função tem que ser execultada para que os dados possam ser obtidos
 
         self.reprodutorInstance.set_media(self.midia)
+
         self.reprodutorInstance.play()
 
-        time.sleep(0.5)
-        self.audios = self.reprodutorInstance.audio_get_track_description()
-        self.legendas = self.reprodutorInstance.video_get_spu_description()
+        self.timer.timeout.connect(self.informacaoMidia)
+        self.timer.start(500)
 
-        self.comboMusica.clear()
-        self.comboLegenda.clear()
-
-        audio =[list(Tuple) for Tuple in self.audios]
-        
-        legendas =[list(Tuple) for Tuple in self.legendas]
-
-        for faixas_audio in audio:
-            self.comboMusica.addItem(faixas_audio[1].decode('UTF-8'))
-        
-        for faixas_legenda in legendas:
-            self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
-
-
-        self.comboMusica.setCurrentIndex(1)
-        self.comboLegenda.setCurrentIndex(1)
         '''
         #segundo reprodutor
         self.reprodutorInstance2.set_media(self.midia)
         self.reprodutorInstance2.play()
+
         '''
+    
+    def informacaoMidia(self):
+
+        self.audios = self.reprodutorInstance.audio_get_track_description()
+        self.legendas = self.reprodutorInstance.video_get_spu_description()
+
+        self.comboMusica.clear()
+        
+        audio = [list(Tuple) for Tuple in self.audios]
+        
+        for faixas_audio in audio:
+            self.comboMusica.addItem(str(faixas_audio[1]))
+        self.comboMusica.setCurrentIndex(1)
+
+           
+        self.comboLegenda.clear()
+
+        legendas = [list(Tuple) for Tuple in self.legendas]
+
+        for faixas_legenda in legendas:
+            self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
+        self.comboLegenda.setCurrentIndex(1)
+        
+        self.timer.stop()
 
     def play(self):
         if self.reprodutorInstance.is_playing():
@@ -123,6 +153,8 @@ class player():
         icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
         self.slideMusica.setValue(0)
+        self.comboLegenda.clear()
+        self.comboMusica.clear()
 
     def mute(self,event):
         icon1 = QtGui.QIcon()
@@ -159,8 +191,45 @@ class player():
         self.slideMusica.setValue(0)
     
     def mudarFaixaDeAudio(self,arg):
+
         if arg == 0:
             self.reprodutorInstance.audio_set_track(-1) # é usado -1 porque o vlc usa esse indice para desabilitar o audio
 
         else:
             self.reprodutorInstance.audio_set_track(arg)
+    
+    def mudarFaixaDeLegenda(self,arg):
+
+        if arg == 0:
+            self.reprodutorInstance.video_set_spu(-1) # é usado -1 porque o vlc usa esse indice para desabilitar o audio
+        else:
+            self.reprodutorInstance.video_set_spu(arg)
+    
+    def busca(self):
+
+        self.listaBanco.clear()
+        self.listaDeMidiaBanco = []
+
+        texto = self.areaBusca.text()
+        indice = self.comboBanco.currentIndex()
+        tipo  = self.comboBanco.itemText(indice).lower()
+
+        itens = self.bancoDeDados.selecionarDados(tipo,texto)
+
+        for faixas in itens:
+            self.listaBanco.addItem(faixas[1])
+            self.listaDeMidiaBanco.append(faixas[2])
+
+    def itemDoBancoParaPlaylist(self):
+        try:
+            item = self.listaDeMidiaBanco[self.listaBanco.row(self.itemBanco)]
+            self.listaDeMidia.append(item)
+            self.listaPlaylist.addItem(self.itemBanco.text())
+        except Exception:
+            print(Exception)
+        
+    def itemClicadoBanco(self,arg):
+        self.itemBanco = arg
+    
+        
+        
