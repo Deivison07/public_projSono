@@ -15,9 +15,6 @@ class player():
 
         self.listaDeMidia = []
 
-        self.timer = QTimer(self)
-        
-
         self.botaoAdicionar.clicked.connect(self.adicionarExterno) # conector botaoAdicionar para função adicionarExterno
         self.botaoRemover.clicked.connect(self.removerItemDePlayList) # conector botaoRemover para função removerItemDePlayList
         self.listaPlaylist.itemClicked.connect(self.itemclicadoPlayList)  # conector listaPlaylist para função removerItemDePlayList
@@ -38,15 +35,17 @@ class player():
         self.botaoAdicionar_2.clicked.connect(self.itemDoBancoParaPlaylist)
         self.listaBanco.itemClicked.connect(self.itemClicadoBanco)
 
-        self.botaoProximo.clicked.connect(self.informacaoMidia)
+        #self.botaoProximo.clicked.connect(self.informacaoMidia)
 
 
         self.player = vlc.Instance()
 
-        #self.mediaList = self.player.media_list_new()
+        self.mediaList = self.player.media_list_new()
         self.reprodutorInstance = self.player.media_player_new()
         self.reprodutorInstance2 = self.player.media_player_new()
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+
+        #self.reprodutorInstance.set_media_list(self.mediaList)
 
         event_manager = self.reprodutorInstance.event_manager()
         event_manager.event_attach(vlc.EventType.MediaPlayerPlaying, self.reproduzindo)
@@ -57,6 +56,8 @@ class player():
 
         self.slideMusicaPressionado = 0
 
+        self.timer = QTimer(self)
+        
     def adicionarExterno(self):
         '''
                 adicionar midia externa a playlist
@@ -109,8 +110,14 @@ class player():
 
         '''
     
-    def informacaoMidia(self):
+    def reproduzindo(self,event):
 
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.botaoPlay.setIcon(icon1)
+    
+    def informacaoMidia(self):
+        print('pegou')
         self.audios = self.reprodutorInstance.audio_get_track_description()
         self.legendas = self.reprodutorInstance.video_get_spu_description()
 
@@ -122,7 +129,6 @@ class player():
             self.comboMusica.addItem(str(faixas_audio[1]))
         self.comboMusica.setCurrentIndex(1)
 
-           
         self.comboLegenda.clear()
 
         legendas = [list(Tuple) for Tuple in self.legendas]
@@ -134,6 +140,7 @@ class player():
         self.timer.stop()
 
     def play(self):
+
         if self.reprodutorInstance.is_playing():
             self.reprodutorInstance.pause()
             icon1 = QtGui.QIcon()
@@ -141,12 +148,9 @@ class player():
             self.botaoPlay.setIcon(icon1)
         else:
             self.reprodutorInstance.play()
-    
-    def reproduzindo(self,event):
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.botaoPlay.setIcon(icon1)
-
+            self.timer.timeout.connect(self.informacaoMidia)
+            self.timer.start(500)
+   
     def stop(self):
         self.reprodutorInstance.stop()
         icon1 = QtGui.QIcon()
