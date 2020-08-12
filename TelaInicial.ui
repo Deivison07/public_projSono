@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>919</width>
-    <height>559</height>
+    <height>569</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -19,172 +19,347 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_12">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_9">
-      <item>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="title">
-         <string>Player</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Player</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_13">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
-              <widget class="QFrame" name="frameVideo">
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QFrame" name="frameVideo">
+                   <property name="minimumSize">
+                    <size>
+                     <width>301</width>
+                     <height>211</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_3">
+                    <item>
+                     <widget class="QLabel" name="imagemMidia">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="pixmap">
+                       <pixmap>icones/play.png</pixmap>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>false</bool>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>false</bool>
+                      </property>
+                      <property name="openExternalLinks">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QSlider" name="slideMusica">
+                     <property name="minimumSize">
+                      <size>
+                       <width>314</width>
+                       <height>22</height>
+                      </size>
+                     </property>
+                     <property name="pageStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                     <item>
+                      <spacer name="horizontalSpacer_2">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="botaoPlay">
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icones/play.png</normaloff>icones/play.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>18</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="autoRepeat">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="botaoStop">
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icones/stop.png</normaloff>icones/stop.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>18</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="autoRepeat">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="botaoRedimencionar">
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icones/94519.png</normaloff>icones/94519.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>18</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
+                       </property>
+                       <property name="autoRepeat">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="maximumSize">
+                      <size>
+                       <width>21</width>
+                       <height>21</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap>icones/note-beam.png</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboMusica">
+                     <property name="currentIndex">
+                      <number>-1</number>
+                     </property>
+                     <property name="frame">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_4">
+                   <item>
+                    <widget class="QLabel" name="label_2">
+                     <property name="maximumSize">
+                      <size>
+                       <width>21</width>
+                       <height>31</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap>icones/legendas.png</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboLegenda">
+                     <property name="currentText">
+                      <string/>
+                     </property>
+                     <property name="currentIndex">
+                      <number>-1</number>
+                     </property>
+                     <property name="frame">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <item>
+                      <widget class="QPushButton" name="botaoVolume">
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icones/iconfinder-volume-max-sound-speaker-audio-4593170_122277.ico</normaloff>icones/iconfinder-volume-max-sound-speaker-audio-4593170_122277.ico</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>18</width>
+                         <height>18</height>
+                        </size>
+                       </property>
+                       <property name="autoRepeat">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QSlider" name="slideVolume">
+                       <property name="value">
+                        <number>99</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QListWidget" name="listaTrecho">
                <property name="minimumSize">
                 <size>
-                 <width>301</width>
-                 <height>211</height>
+                 <width>251</width>
+                 <height>320</height>
                 </size>
                </property>
-               <property name="frameShape">
-                <enum>QFrame::Box</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
-                <item>
-                 <widget class="QLabel" name="imagemMidia">
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="pixmap">
-                   <pixmap>icones/play.png</pixmap>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>false</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>false</bool>
-                  </property>
-                  <property name="openExternalLinks">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
               </widget>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>Playlist</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
-                <widget class="QSlider" name="slideMusica">
-                 <property name="minimumSize">
-                  <size>
-                   <width>314</width>
-                   <height>22</height>
-                  </size>
-                 </property>
-                 <property name="pageStep">
-                  <number>1</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout">
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
                  <item>
-                  <spacer name="horizontalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                  <widget class="QToolButton" name="botaoAdicionar">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adicionar midia externa&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="botaoAnterior">
                    <property name="text">
                     <string/>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>icones/previus.png</normaloff>icones/previus.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>18</width>
-                     <height>18</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>false</bool>
+                     <normaloff>icones/add-icon.png</normaloff>icones/add-icon.png</iconset>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="botaoPlay">
+                  <widget class="QToolButton" name="botaoRemover">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remover item da lista&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>icones/play.png</normaloff>icones/play.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>18</width>
-                     <height>18</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>false</bool>
+                     <normaloff>icones/remove-symbol_icon-icons.com_73439.ico</normaloff>icones/remove-symbol_icon-icons.com_73439.ico</iconset>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="botaoProximo">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>icones/next.png</normaloff>icones/next.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>18</width>
-                     <height>18</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="botaoStop">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>icones/stop.png</normaloff>icones/stop.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>18</width>
-                     <height>18</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer">
+                  <spacer name="horizontalSpacer_3">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -198,214 +373,24 @@
                  </item>
                 </layout>
                </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <widget class="QLabel" name="label">
-                 <property name="maximumSize">
-                  <size>
-                   <width>21</width>
-                   <height>21</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icones/note-beam.png</pixmap>
-                 </property>
-                 <property name="scaledContents">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="comboMusica">
-                 <property name="currentIndex">
-                  <number>0</number>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <item>
-                  <property name="text">
-                   <string comment="654" extracomment="684">Cantada</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Playback</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QLabel" name="label_2">
-                 <property name="maximumSize">
-                  <size>
-                   <width>21</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icones/legendas.png</pixmap>
-                 </property>
-                 <property name="scaledContents">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="comboLegenda">
-                 <property name="currentText">
-                  <string>Normal</string>
-                 </property>
-                 <property name="currentIndex">
-                  <number>0</number>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <item>
-                  <property name="text">
-                   <string>Normal</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Sem Legenda</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
-                 <item>
-                  <widget class="QPushButton" name="botaoVolume">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>icones/iconfinder-volume-max-sound-speaker-audio-4593170_122277.ico</normaloff>icones/iconfinder-volume-max-sound-speaker-audio-4593170_122277.ico</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>18</width>
-                     <height>18</height>
-                    </size>
-                   </property>
-                   <property name="autoRepeat">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="slideVolume">
-                   <property name="value">
-                    <number>99</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="QListWidget" name="listaPlaylist"/>
                </item>
               </layout>
              </item>
             </layout>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QListWidget" name="listaTrecho">
-           <property name="minimumSize">
-            <size>
-             <width>251</width>
-             <height>320</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>Playlist</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QToolButton" name="botaoAdicionar">
-               <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adicionar midia externa&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>icones/add-icon.png</normaloff>icones/add-icon.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="botaoRemover">
-               <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remover item da lista&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>icones/remove-symbol_icon-icons.com_73439.ico</normaloff>icones/remove-symbol_icon-icons.com_73439.ico</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QListWidget" name="listaPlaylist"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Coletânea</string>
+       </attribute>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
