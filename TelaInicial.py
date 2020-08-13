@@ -247,18 +247,31 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.tabWidget.setToolTip(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.slideMusica.setToolTip(_translate("MainWindow", "<html><head/><body><p>slide de tempo de midia</p><p><br/></p></body></html>"))
+        self.botaoPlay.setToolTip(_translate("MainWindow", "<html><head/><body><p>play/pause</p></body></html>"))
+        self.botaoStop.setToolTip(_translate("MainWindow", "<html><head/><body><p>stop</p></body></html>"))
+        self.botaoRedimencionar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ocultar Tela secundária</p></body></html>"))
+        self.comboMusica.setToolTip(_translate("MainWindow", "<html><head/><body><p>trilha de audio, normalmente exibe Normal/Playback</p></body></html>"))
+        self.comboLegenda.setToolTip(_translate("MainWindow", "<html><head/><body><p>Legendas</p></body></html>"))
+        self.botaoVolume.setToolTip(_translate("MainWindow", "<html><head/><body><p>Mute</p><p><br/></p></body></html>"))
+        self.slideVolume.setToolTip(_translate("MainWindow", "<html><head/><body><p>slide de volume de audio</p></body></html>"))
+        self.listaTrecho.setToolTip(_translate("MainWindow", "<html><head/><body><p>Exibe os trechos da midia caso exista.</p></body></html>"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Playlist"))
         self.botaoAdicionar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Adicionar midia externa</p></body></html>"))
         self.botaoRemover.setToolTip(_translate("MainWindow", "<html><head/><body><p>Remover item da lista</p></body></html>"))
+        self.listaPlaylist.setToolTip(_translate("MainWindow", "<html><head/><body><p>lista de midia</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Player"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Coletânea"))
         self.dockWidget_2.setWindowTitle(_translate("MainWindow", "Sonoplastia"))
+        self.groupBox.setToolTip(_translate("MainWindow", "<html><head/><body><p>Banco de dados</p></body></html>"))
         self.groupBox.setTitle(_translate("MainWindow", "Banco:"))
         self.areaBusca.setToolTip(_translate("MainWindow", "<html><head/><body><p>Clique Enter para procurar</p></body></html>"))
         self.comboBanco.setItemText(0, _translate("MainWindow", "Musica"))
         self.comboBanco.setItemText(1, _translate("MainWindow", "Trecho"))
         self.comboBanco.setItemText(2, _translate("MainWindow", "Album"))
         self.botaoAdicionar_2.setToolTip(_translate("MainWindow", "<html><head/><body><p>Adicionar a playList</p></body></html>"))
+        self.listaBanco.setToolTip(_translate("MainWindow", "<html><head/><body><p>intens procurados</p></body></html>"))
 
 
 if __name__ == "__main__":

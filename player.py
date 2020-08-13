@@ -106,9 +106,9 @@ class player():
         self.reprodutorInstance2.play()
         self.reprodutorInstance2.audio_set_mute(True)
 
-        self.telaSecundaria.setVisible(True)
-        self.telaSecundaria.showFullScreen()
-
+        #self.telaSecundaria.setVisible(True)
+        #self.telaSecundaria.showFullScreen()
+        
         #primeiro reprodutor
         self.reprodutorInstance.set_media(self.midia)
         self.reprodutorInstance.play()
@@ -148,7 +148,7 @@ class player():
         self.timer.stop()
 
     def play(self):
-        
+
         if self.reprodutorInstance.is_playing():
             self.reprodutorInstance.pause()
             self.reprodutorInstance2.pause()
@@ -261,9 +261,9 @@ class player():
         self.itemBanco = arg
     
     def redimencionar(self,arg):
-        print(arg)
         if arg:
-            self.telaSecundaria.showMaximized()
+            self.telaSecundaria.setVisible(True)
+            self.telaSecundaria.showFullScreen()
         else:
             self.telaSecundaria.setVisible(False)
 

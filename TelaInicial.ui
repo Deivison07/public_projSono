@@ -20,6 +20,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout_12">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -90,6 +93,9 @@
                        <height>22</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;slide de tempo de midia&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="pageStep">
                       <number>1</number>
                      </property>
@@ -115,6 +121,9 @@
                      </item>
                      <item>
                       <widget class="QPushButton" name="botaoPlay">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;play/pause&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -135,6 +144,9 @@
                      </item>
                      <item>
                       <widget class="QPushButton" name="botaoStop">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -155,6 +167,9 @@
                      </item>
                      <item>
                       <widget class="QPushButton" name="botaoRedimencionar">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ocultar Tela secundária&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -223,6 +238,9 @@
                    </item>
                    <item>
                     <widget class="QComboBox" name="comboMusica">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;trilha de audio, normalmente exibe Normal/Playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="currentIndex">
                       <number>-1</number>
                      </property>
@@ -256,6 +274,9 @@
                    </item>
                    <item>
                     <widget class="QComboBox" name="comboLegenda">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legendas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="currentText">
                       <string/>
                      </property>
@@ -271,6 +292,9 @@
                     <layout class="QHBoxLayout" name="horizontalLayout_7">
                      <item>
                       <widget class="QPushButton" name="botaoVolume">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mute&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -291,6 +315,9 @@
                      </item>
                      <item>
                       <widget class="QSlider" name="slideVolume">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;slide de volume de audio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="value">
                         <number>99</number>
                        </property>
@@ -314,6 +341,9 @@
                  <width>251</width>
                  <height>320</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exibe os trechos da midia caso exista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -374,7 +404,11 @@
                 </layout>
                </item>
                <item>
-                <widget class="QListWidget" name="listaPlaylist"/>
+                <widget class="QListWidget" name="listaPlaylist">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;lista de midia&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -412,6 +446,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <widget class="QGroupBox" name="groupBox">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Banco de dados&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="title">
         <string>Banco:</string>
        </property>
@@ -471,6 +508,9 @@
               </property>
               <property name="acceptDrops">
                <bool>true</bool>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;intens procurados&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
