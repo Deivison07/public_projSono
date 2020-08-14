@@ -128,6 +128,7 @@ class player():
     def informacaoMidia(self):
         self.audios = self.reprodutorInstance.audio_get_track_description()
         self.legendas = self.reprodutorInstance.video_get_spu_description()
+        print(self.audios)
 
         self.comboMusica.clear()
         
@@ -216,7 +217,8 @@ class player():
         self.slideMusica.setValue(0)
     
     def mudarFaixaDeAudio(self,arg):
-        print('pegou')
+        print(arg)
+
         if arg == 0:
             self.reprodutorInstance.audio_set_track(-1)
             self.reprodutorInstance2.audio_set_track(-1) # é usado -1 porque o vlc usa esse indice para desabilitar o audio
