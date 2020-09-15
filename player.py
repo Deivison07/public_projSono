@@ -47,9 +47,9 @@ class player():
 
         #lista a tela secundaria do sistema
 
-        display_monitor = len(QtGui.QGuiApplication.screens())
-        monitor = QDesktopWidget().screenGeometry(1)
-        self.telaSecundaria.move(monitor.left(), monitor.top())
+        display_monitor = len(QtGui.QGuiApplication.screens()) #quantas telas tem no sistema
+        monitor = QDesktopWidget().screenGeometry(1) #propriedades do monitor
+        self.telaSecundaria.move(monitor.left(), monitor.top()) #informando para a tela secundaria qual monitor aparecerá
         
         #Eventos
         event_manager = self.reprodutorInstance.event_manager()
