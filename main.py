@@ -4,15 +4,13 @@ from TelaInicial import Ui_MainWindow
 import player
 from banco import banco
 
-class main(QtWidgets.QMainWindow, Ui_MainWindow, player.player):
+class main(player.player):
 
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
         player.player.__init__(self)
         self.bancoDeDados = banco()
         
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

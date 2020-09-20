@@ -1,13 +1,16 @@
 import vlc 
+from time import sleep
 from PyQt5 import QtWidgets,QtGui 
 from TelaInicial import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QTimer
 
     
-class player():
+class player(QtWidgets.QMainWindow,Ui_MainWindow):
 
     def __init__(self):
+        super().__init__()
+        self.setupUi(self)
         #Tela secundaria
         self.telaSecundaria = QtWidgets.QWidget()
 
@@ -68,6 +71,8 @@ class player():
         self.arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if self.arquivo[0] != '':
             self.listaDeMidia.append(self.arquivo[0])
+            self.mediaList.add_media(self.arquivo[0])
+
             self.arquivo = self.arquivo[0].split('/')
             self.listaPlaylist.addItem(str(self.arquivo[-1]))
 
@@ -98,6 +103,7 @@ class player():
     def reprodutor(self,arg):
         
         self.midia = self.player.media_new(arg) #caminho do arquivo para ser execultado
+        #self.midia = self.mediaList.item_at_index(0)
         self.midia.parse() # essaa função tem que ser execultada para que os dados possam ser obtidos
 
         #segundo reprodutor
@@ -157,6 +163,7 @@ class player():
             icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.botaoPlay.setIcon(icon1)
         else:
+            
             self.reprodutorInstance.play()
             self.reprodutorInstance2.play()
             self.timer.timeout.connect(self.informacaoMidia)
@@ -215,9 +222,14 @@ class player():
 
     def fimdaReproducao(self,event):
         self.slideMusica.setValue(0)
-    
+        self.telaSecundaria.setVisible(False)
+        self.play()
+        
+        
+        
+        
     def mudarFaixaDeAudio(self,arg):
-        print(arg)
+
 
         if arg == 0:
             self.reprodutorInstance.audio_set_track(-1)
@@ -255,6 +267,8 @@ class player():
         try:
             item = self.listaDeMidiaBanco[self.listaBanco.row(self.itemBanco)]
             self.listaDeMidia.append(item)
+            self.mediaList.add_media(item)
+            
             self.listaPlaylist.addItem(self.itemBanco.text())
         except Exception:
             print(Exception)
