@@ -5,7 +5,7 @@ import player
 from banco import banco
 
 class main(player.player):
-
+    
     def __init__(self):
         super().__init__()
         player.player.__init__(self)

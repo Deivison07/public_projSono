@@ -48,6 +48,10 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.reprodutorInstance = self.player.media_player_new()
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
 
+        self.reprodutorInstance.stop()
+        self.reprodutorInstance.audio_set_volume(50)
+        
+
         #lista a tela secundaria do sistema
 
         display_monitor = len(QtGui.QGuiApplication.screens()) #quantas telas tem no sistema
@@ -93,12 +97,12 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
     
     def midiaParaReproduzirVindoDaLista(self,arg):
     
-        arq = self.listaDeMidia[self.listaPlaylist.row(arg)] 
-        self.reprodutor(arq)
+        self.arq = self.listaDeMidia[self.listaPlaylist.row(arg)] 
+        self.reprodutor(self.arq)
     
     def midiaParaReproduzirVindoDoBanco(self,arg):
-        arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
-        self.reprodutor(arq)
+        self.arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
+        self.reprodutor(self.arq)
 
     def reprodutor(self,arg):
         
@@ -125,11 +129,14 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.timer.start(500)
 
     def reproduzindo(self,event):
-
+        self.botaoPlay.setEnabled(True)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
-        #self.telaSecundaria.show()
+        if self.botaoRedimencionarEstado:
+            self.telaSecundaria.show()
+        
+
     
     def informacaoMidia(self):
         self.audios = self.reprodutorInstance.audio_get_track_description()
@@ -163,7 +170,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
             icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.botaoPlay.setIcon(icon1)
         else:
-            
+            print('não play')
             self.reprodutorInstance.play()
             self.reprodutorInstance2.play()
             self.timer.timeout.connect(self.informacaoMidia)
@@ -186,7 +193,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         self.comboLegenda.clear()
         self.comboMusica.clear()
-        self.botaoRedimencionar.setChecked(False)
+        #self.botaoRedimencionar.setChecked(False)
 
     def mute(self,event):
         icon1 = QtGui.QIcon()
@@ -223,10 +230,11 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
     def fimdaReproducao(self,event):
         self.slideMusica.setValue(0)
         self.telaSecundaria.setVisible(False)
-        self.play()
-        
-        
-        
+
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.botaoPlay.setIcon(icon1)
+        self.botaoPlay.setEnabled(False)
         
     def mudarFaixaDeAudio(self,arg):
 
@@ -277,6 +285,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.itemBanco = arg
     
     def redimencionar(self,arg):
+        self.botaoRedimencionarEstado = arg
         if arg:
             self.telaSecundaria.setVisible(True)
             self.telaSecundaria.showFullScreen()
