@@ -44,6 +44,7 @@ class player():
 
         self.reprodutorInstance = self.player.media_player_new()
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+        self.reprodutorInstance.stop()
 
         #lista a tela secundaria do sistema
 
