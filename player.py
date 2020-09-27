@@ -34,8 +34,13 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.botaoAdicionar_2.clicked.connect(self.itemDoBancoParaPlaylist)
         self.listaBanco.itemClicked.connect(self.itemClicadoBanco)
         self.botaoRedimencionar.clicked.connect(self.redimencionar)
+        self.botaoPlayList.clicked.connect(self.playList)
 
         self.slideMusicaPressionado = 0
+        self.botaoRedimencionarEstado = 0
+        self.ativarPlayList = False
+        self.audios = False
+        self.legendas = False
 
 
         #reprodutor
@@ -75,6 +80,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         event_manager.event_attach(vlc.EventType.MediaPlayerPositionChanged,self.tempo)
         event_manager.event_attach(vlc.EventType.MediaPlayerEndReached,self.fimdaReproducao)
         
+        
         #Timer
         self.timer = QTimer(self)
         
@@ -85,17 +91,18 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if self.arquivo[0] != '':
             self.listaDeMidia.append(self.arquivo[0])
-            self.mediaList.add_media(self.arquivo[0])
+            #self.mediaList.add_media(self.arquivo[0])
 
             self.arquivo = self.arquivo[0].split('/')
             self.listaPlaylist.addItem(str(self.arquivo[-1]))
 
     def removerItemDePlayList(self):
         try:
+            item = self.listaPlaylist.row(self.itemClicado)
 
-            del(self.listaDeMidia[self.listaPlaylist.row(self.itemClicado)])
-            self.mediaList.remove_index(self.listaPlaylist.row(self.itemClicado))
-            self.listaPlaylist.takeItem(self.listaPlaylist.row(self.itemClicado))
+            del(self.listaDeMidia[item])
+            self.mediaList.remove_index(item)
+            self.listaPlaylist.takeItem(item)
             
             print(self.listaDeMidia)
 
@@ -113,27 +120,31 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         for x in range(cont):
             self.mediaList.remove_index(0)
 
-        #adiciona o que está na lista   
         index = self.listaPlaylist.row(arg)
-        cont = len(self.listaDeMidia)
-        for x in range(cont):
-            self.mediaList.add_media(self.listaDeMidia[x])
 
-        self.reprodutor(index)
+        #adiciona o que está na lista   
+        if self.ativarPlayList:
+            
+            cont = len(self.listaDeMidia)
+            for x in range(cont):
+                self.mediaList.add_media(self.listaDeMidia[x])
+            self.texto.setText('Execultando modo Playlist') 
+            self.reprodutor(index)
+        else:
+            self.texto.setText('Execultando modo Single') 
+            self.mediaList.add_media(self.listaDeMidia[index])
+            self.reprodutor(0)
     
     def midiaParaReproduzirVindoDoBanco(self,arg):
         cont = self.mediaList.count()
 
         for x in range(cont):
             self.mediaList.remove_index(0)
-            print(x,self.mediaList.count())
-            #sleep(1)
             
         self.arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
-        self.mediaList.add_media(self.arq)      
+        self.mediaList.add_media(self.arq)
+        self.texto.setText('Execultando modo Single')      
         self.reprodutor(0)  
-
-
 
     def reprodutor(self,index=0):
         
@@ -145,27 +156,28 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.reprodutorInstancePlayListExterno.play_item_at_index(index)
         self.reprodutorInstance2.audio_set_mute(True)
 
-        self.timer.timeout.connect(self.informacaoMidia)
-        self.timer.start(500)
+        self.informacaoMidia()
 
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
-        '''if self.botaoRedimencionarEstado == True:
-            self.telaSecundaria.show()'''
-    
+
+        
+        self.informacaoMidia()
+        
     def informacaoMidia(self):
+        self.comboMusica.clear()
+
         self.audios = self.reprodutorInstance.audio_get_track_description()
         self.legendas = self.reprodutorInstance.video_get_spu_description()
-        print(self.audios)
 
-        self.comboMusica.clear()
-        
         audio = [list(Tuple) for Tuple in self.audios]
+        print(audio)
         
         for faixas_audio in audio:
+            print(faixas_audio)
             self.comboMusica.addItem(str(faixas_audio[1]))
         self.comboMusica.setCurrentIndex(1)
 
@@ -177,7 +189,10 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
         self.comboLegenda.setCurrentIndex(1)
         
-        self.timer.stop()
+        #self.timer.stop()
+
+        if self.botaoRedimencionarEstado == True:
+            self.telaSecundaria.show()
 
     def play(self):
 
@@ -191,9 +206,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
             print('não play')
             self.reprodutorInstance.play()
             self.reprodutorInstance2.play()
-            self.timer.timeout.connect(self.informacaoMidia)
-            self.timer.start(500)
-   
+
     def stop(self):
         
         self.reprodutorInstance.stop() #para player principal
@@ -247,13 +260,13 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
 
     def fimdaReproducao(self,event):
         self.slideMusica.setValue(0)
-        self.telaSecundaria.setVisible(False)
 
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
         self.botaoPlay.setEnabled(False)
-        
+
+         
     def mudarFaixaDeAudio(self,arg):
 
 
@@ -303,6 +316,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.itemBanco = arg
     
     def redimencionar(self,arg):
+        print(arg)
         self.botaoRedimencionarEstado = arg
         if arg:
             self.telaSecundaria.setVisible(True)
@@ -310,4 +324,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         else:
             self.telaSecundaria.setVisible(False)
 
-        
+    def playList(self,arg):
+        self.ativarPlayList = arg
+
+

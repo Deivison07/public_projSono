@@ -11,6 +11,7 @@ class main(player.player):
         player.player.__init__(self)
         self.bancoDeDados = banco()
         
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
