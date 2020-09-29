@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>919</width>
-    <height>569</height>
+    <height>588</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::ActionsContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Sn7.0.1</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -283,8 +283,14 @@
                      <property name="toolTip">
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;trilha de audio, normalmente exibe Normal/Playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
+                     <property name="editable">
+                      <bool>true</bool>
+                     </property>
                      <property name="currentIndex">
                       <number>-1</number>
+                     </property>
+                     <property name="sizeAdjustPolicy">
+                      <enum>QComboBox::AdjustToContents</enum>
                      </property>
                      <property name="frame">
                       <bool>true</bool>
@@ -319,11 +325,17 @@
                      <property name="toolTip">
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legendas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
+                     <property name="editable">
+                      <bool>true</bool>
+                     </property>
                      <property name="currentText">
                       <string/>
                      </property>
                      <property name="currentIndex">
                       <number>-1</number>
+                     </property>
+                     <property name="sizeAdjustPolicy">
+                      <enum>QComboBox::AdjustToContents</enum>
                      </property>
                      <property name="frame">
                       <bool>true</bool>

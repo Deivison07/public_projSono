@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(919, 569)
+        MainWindow.resize(919, 588)
         MainWindow.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -125,6 +125,8 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)
         self.comboMusica = QtWidgets.QComboBox(self.groupBox_2)
+        self.comboMusica.setEditable(True)
+        self.comboMusica.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.comboMusica.setFrame(True)
         self.comboMusica.setObjectName("comboMusica")
         self.horizontalLayout_3.addWidget(self.comboMusica)
@@ -139,7 +141,9 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_4.addWidget(self.label_2)
         self.comboLegenda = QtWidgets.QComboBox(self.groupBox_2)
+        self.comboLegenda.setEditable(True)
         self.comboLegenda.setCurrentText("")
+        self.comboLegenda.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.comboLegenda.setFrame(True)
         self.comboLegenda.setObjectName("comboLegenda")
         self.horizontalLayout_4.addWidget(self.comboLegenda)
@@ -260,7 +264,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sn7.0.1"))
         self.tabWidget.setToolTip(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.texto.setToolTip(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.texto.setWhatsThis(_translate("MainWindow", "<html><head/><body><p align=\"center\">tt</p></body></html>"))
