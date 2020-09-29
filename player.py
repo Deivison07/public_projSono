@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QTimer
 
     
-class player(QtWidgets.QMainWindow,Ui_MainWindow):
+class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
     def __init__(self):
         super().__init__()
@@ -57,8 +57,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         self.reprodutorInstance.stop()
         self.reprodutorInstance.audio_set_volume(100)
-
-
+        
         self.reprodutorInstancePlayList = vlc.MediaListPlayer()
         self.reprodutorInstancePlayList.set_media_list(self.mediaList)
         self.reprodutorInstancePlayList.set_media_player(self.reprodutorInstance)
@@ -156,15 +155,13 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.reprodutorInstancePlayListExterno.play_item_at_index(index)
         self.reprodutorInstance2.audio_set_mute(True)
 
-        self.informacaoMidia()
+        #self.informacaoMidia()
 
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
-
-        
         self.informacaoMidia()
         
     def informacaoMidia(self):
@@ -189,11 +186,6 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
         self.comboLegenda.setCurrentIndex(1)
         
-        #self.timer.stop()
-
-        if self.botaoRedimencionarEstado == True:
-            self.telaSecundaria.show()
-
     def play(self):
 
         if self.reprodutorInstance.is_playing():
@@ -215,7 +207,9 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.telaSecundaria.setVisible(False)
         self.reprodutorInstance2.set_position(0) #o player da tela secundaria não da stop e sim fica invisivel na posição 0
         self.reprodutorInstance2.pause()
+        self.botaoRedimencionar.setChecked(False)
         
+        #self.botaoPlay.setEnabled(False)
 
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -224,8 +218,7 @@ class player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         self.comboLegenda.clear()
         self.comboMusica.clear()
-        #self.botaoRedimencionar.setChecked(False)
-
+        
     def mute(self,event):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/iconfinder-volume-mute-sound-speaker-audio-4593175_122269.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

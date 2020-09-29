@@ -1,6 +1,6 @@
 import sqlite3
 
-class banco():
+class Banco():
 
     def __init__(self):
         self.banco = sqlite3.connect('banco/coletanea.sqlite')
