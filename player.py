@@ -14,6 +14,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         #Tela secundaria
         self.telaSecundaria = QtWidgets.QWidget()
+        self.telaSecundaria.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.frameVideo.setStyleSheet("background-color: rgb(0, 0, 0);")
 
         #Tela principal
         self.listaDeMidia = []
@@ -190,6 +192,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
         self.informacaoMidia()
+        if self.botaoRedimencionarEstado == True:
+            self.telaSecundaria.setVisible(True)
         
     def informacaoMidia(self):
         self.comboMusica.clear()

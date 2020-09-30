@@ -1,9 +1,12 @@
 import sqlite3
-
+import os
 class Banco():
 
+
     def __init__(self):
-        self.banco = sqlite3.connect('banco/coletanea.sqlite')
+        
+        dirbanco = os.path.normpath('banco/coletanea.sqlite')
+        self.banco = sqlite3.connect(dirbanco)
         self.cursor = self.banco.cursor()
         #self.criarTabela()
     
