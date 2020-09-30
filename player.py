@@ -52,10 +52,22 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.mediaInstancia = self.player.media_list_new()
         
         self.reprodutorInstance2 = self.player.media_player_new()
-        self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+        
 
         self.reprodutorInstance = self.player.media_player_new()
-        self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+        
+
+        if sys.platform.startswith('linux'): # para linux X Server
+            self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_xwindow(self.frameVideo.winId())
+
+        elif sys.platform == "win32": # para Windows
+            self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+
+        elif sys.platform == "darwin": # para MacOS
+            self.reprodutorInstance.set_nsobject(int(self.frameVideo.winId()))
+            self.reprodutorInstance2.set_nsobject(int(self.telaSecundaria.winId()))
 
         self.reprodutorInstance.stop()
         self.reprodutorInstance.audio_set_volume(100)
@@ -153,16 +165,24 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
     def reprodutor(self,index=0):
         
         self.reprodutorInstancePlayList.play_item_at_index(index)
-        self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+        
+        if sys.platform.startswith('linux'): # para linux X Server
+            self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_xwindow(self.frameVideo.winId())
 
-        self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+        elif sys.platform == "win32": # para Windows
+            self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+
+        elif sys.platform == "darwin": # para MacOS
+            self.reprodutorInstance.set_nsobject(int(self.frameVideo.winId()))
+            self.reprodutorInstance2.set_nsobject(int(self.telaSecundaria.winId()))
 
         self.reprodutorInstancePlayListExterno.play_item_at_index(index)
         self.reprodutorInstance2.audio_set_mute(True)
 
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
-
 
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
