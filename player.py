@@ -1,15 +1,21 @@
+import sys
 import vlc 
+from time import sleep
 from PyQt5 import QtWidgets,QtGui 
 from TelaInicial import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QTimer
 
     
-class player():
+class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
     def __init__(self):
+        super().__init__()
+        self.setupUi(self)
         #Tela secundaria
         self.telaSecundaria = QtWidgets.QWidget()
+        self.telaSecundaria.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.frameVideo.setStyleSheet("background-color: rgb(0, 0, 0);")
 
         #Tela principal
         self.listaDeMidia = []
@@ -31,21 +37,56 @@ class player():
         self.botaoAdicionar_2.clicked.connect(self.itemDoBancoParaPlaylist)
         self.listaBanco.itemClicked.connect(self.itemClicadoBanco)
         self.botaoRedimencionar.clicked.connect(self.redimencionar)
+        self.botaoPlayList.clicked.connect(self.playList)
+        self.listaTrecho.setVisible(False)
 
         self.slideMusicaPressionado = 0
+        self.botaoRedimencionarEstado = 0
+        self.ativarPlayList = False
+        self.audios = False
+        self.legendas = False
 
 
         #reprodutor
         self.player = vlc.Instance()
+        
         self.mediaList = self.player.media_list_new()
+        self.mediaInstancia = self.player.media_list_new()
         
         self.reprodutorInstance2 = self.player.media_player_new()
-        self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+        
 
         self.reprodutorInstance = self.player.media_player_new()
+<<<<<<< HEAD
         self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
         self.reprodutorInstance.stop()
+=======
+        
 
+        if sys.platform.startswith('linux'): # para linux X Server
+            self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_xwindow(self.frameVideo.winId())
+>>>>>>> testePlaylist
+
+        elif sys.platform == "win32": # para Windows
+            self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+
+        elif sys.platform == "darwin": # para MacOS
+            self.reprodutorInstance.set_nsobject(int(self.frameVideo.winId()))
+            self.reprodutorInstance2.set_nsobject(int(self.telaSecundaria.winId()))
+
+        self.reprodutorInstance.stop()
+        self.reprodutorInstance.audio_set_volume(100)
+        
+        self.reprodutorInstancePlayList = vlc.MediaListPlayer()
+        self.reprodutorInstancePlayList.set_media_list(self.mediaList)
+        self.reprodutorInstancePlayList.set_media_player(self.reprodutorInstance)
+
+        self.reprodutorInstancePlayListExterno = vlc.MediaListPlayer()
+        self.reprodutorInstancePlayListExterno.set_media_list(self.mediaList)
+        self.reprodutorInstancePlayListExterno.set_media_player(self.reprodutorInstance2)
+        
         #lista a tela secundaria do sistema
 
         display_monitor = len(QtGui.QGuiApplication.screens()) #quantas telas tem no sistema
@@ -59,6 +100,7 @@ class player():
         event_manager.event_attach(vlc.EventType.MediaPlayerPositionChanged,self.tempo)
         event_manager.event_attach(vlc.EventType.MediaPlayerEndReached,self.fimdaReproducao)
         
+        
         #Timer
         self.timer = QTimer(self)
         
@@ -69,14 +111,18 @@ class player():
         self.arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if self.arquivo[0] != '':
             self.listaDeMidia.append(self.arquivo[0])
+            #self.mediaList.add_media(self.arquivo[0])
+
             self.arquivo = self.arquivo[0].split('/')
             self.listaPlaylist.addItem(str(self.arquivo[-1]))
 
     def removerItemDePlayList(self):
         try:
+            item = self.listaPlaylist.row(self.itemClicado)
 
-            del(self.listaDeMidia[self.listaPlaylist.row(self.itemClicado)])
-            self.listaPlaylist.takeItem(self.listaPlaylist.row(self.itemClicado))
+            del(self.listaDeMidia[item])
+            self.mediaList.remove_index(item)
+            self.listaPlaylist.takeItem(item)
             
             print(self.listaDeMidia)
 
@@ -88,55 +134,85 @@ class player():
         self.itemClicado = item
     
     def midiaParaReproduzirVindoDaLista(self,arg):
-    
-        arq = self.listaDeMidia[self.listaPlaylist.row(arg)] 
-        self.reprodutor(arq)
+        self.contadorDeMidia = 0
+        #remove tudo
+        cont = self.mediaList.count()
+        for x in range(cont):
+            self.mediaList.remove_index(0)
+
+        index = self.listaPlaylist.row(arg)
+
+        #adiciona o que está na lista   
+        if self.ativarPlayList:
+            
+            cont = len(self.listaDeMidia)
+            for x in range(cont):
+                self.mediaList.add_media(self.listaDeMidia[x])
+                self.contadorDeMidia += 1
+            self.texto.setText('Execultando modo Playlist') 
+            self.reprodutor(index)
+        else:
+            self.contadorDeMidia = 1
+            self.texto.setText('Execultando modo Single') 
+            self.mediaList.add_media(self.listaDeMidia[index])
+            self.reprodutor(0)
     
     def midiaParaReproduzirVindoDoBanco(self,arg):
-        arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
-        self.reprodutor(arq)
+        cont = self.mediaList.count()
+        self.contadorDeMidia = 1
 
-    def reprodutor(self,arg):
+        for x in range(cont):
+            self.mediaList.remove_index(0)
+            
+        self.arq = self.listaDeMidiaBanco[self.listaBanco.row(arg)]
+        self.mediaList.add_media(self.arq)
+        self.texto.setText('Execultando modo Single')      
+        self.reprodutor(0)  
+
+    def reprodutor(self,index=0):
         
-        self.midia = self.player.media_new(arg) #caminho do arquivo para ser execultado
-        self.midia.parse() # essaa função tem que ser execultada para que os dados possam ser obtidos
+        self.reprodutorInstancePlayList.play_item_at_index(index)
+        
+        if sys.platform.startswith('linux'): # para linux X Server
+            self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_xwindow(self.frameVideo.winId())
 
-        #segundo reprodutor
-        self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
-        self.reprodutorInstance2.set_media(self.midia)
-        self.reprodutorInstance2.play()
+        elif sys.platform == "win32": # para Windows
+            self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
+            self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
+
+        elif sys.platform == "darwin": # para MacOS
+            self.reprodutorInstance.set_nsobject(int(self.frameVideo.winId()))
+            self.reprodutorInstance2.set_nsobject(int(self.telaSecundaria.winId()))
+
+        self.reprodutorInstancePlayListExterno.play_item_at_index(index)
         self.reprodutorInstance2.audio_set_mute(True)
 
-        #self.telaSecundaria.setVisible(True)
-        #self.telaSecundaria.showFullScreen()
-        
-        #primeiro reprodutor
-        self.reprodutorInstance.set_media(self.midia)
-        self.reprodutorInstance.play()
-        self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
-        
-        
-        self.timer.timeout.connect(self.informacaoMidia)
-        self.timer.start(500)
+        if self.botaoRedimencionarEstado == True:
+            self.telaSecundaria.setVisible(True)
 
     def reproduzindo(self,event):
-
+        self.botaoPlay.setEnabled(True)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
-        #self.telaSecundaria.show()
-    
+        self.informacaoMidia()
+        if self.botaoRedimencionarEstado == True:
+            self.telaSecundaria.setVisible(True)
+        
     def informacaoMidia(self):
+        self.comboMusica.clear()
+
         self.audios = self.reprodutorInstance.audio_get_track_description()
         self.legendas = self.reprodutorInstance.video_get_spu_description()
-        print(self.audios)
 
-        self.comboMusica.clear()
-        
         audio = [list(Tuple) for Tuple in self.audios]
+        print(audio)
         
         for faixas_audio in audio:
-            self.comboMusica.addItem(str(faixas_audio[1]))
+            print(faixas_audio)
+
+            self.comboMusica.addItem(str(faixas_audio[1].decode('UTF-8')))
         self.comboMusica.setCurrentIndex(1)
 
         self.comboLegenda.clear()
@@ -144,11 +220,9 @@ class player():
         legendas = [list(Tuple) for Tuple in self.legendas]
 
         for faixas_legenda in legendas:
-            self.comboLegenda.addItem(faixas_legenda[1].decode('UTF-8'))
+            self.comboLegenda.addItem(str(faixas_legenda[1].decode('UTF-8')))
         self.comboLegenda.setCurrentIndex(1)
         
-        self.timer.stop()
-
     def play(self):
 
         if self.reprodutorInstance.is_playing():
@@ -158,11 +232,10 @@ class player():
             icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.botaoPlay.setIcon(icon1)
         else:
+            print('não play')
             self.reprodutorInstance.play()
             self.reprodutorInstance2.play()
-            self.timer.timeout.connect(self.informacaoMidia)
-            self.timer.start(500)
-   
+
     def stop(self):
         
         self.reprodutorInstance.stop() #para player principal
@@ -171,7 +244,9 @@ class player():
         self.telaSecundaria.setVisible(False)
         self.reprodutorInstance2.set_position(0) #o player da tela secundaria não da stop e sim fica invisivel na posição 0
         self.reprodutorInstance2.pause()
+        #self.botaoRedimencionar.setChecked(False)
         
+        #self.botaoPlay.setEnabled(False)
 
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -180,8 +255,7 @@ class player():
 
         self.comboLegenda.clear()
         self.comboMusica.clear()
-        self.botaoRedimencionar.setChecked(False)
-
+        
     def mute(self,event):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/iconfinder-volume-mute-sound-speaker-audio-4593175_122269.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -216,9 +290,19 @@ class player():
 
     def fimdaReproducao(self,event):
         self.slideMusica.setValue(0)
-    
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.botaoPlay.setIcon(icon1)
+        self.botaoPlay.setEnabled(False)
+        self.contadorDeMidia-=1
+        try:
+            if self.contadorDeMidia == 0:
+                self.telaSecundaria.setVisible(False)
+        except Exception:
+            print('erro na contagem de midia')
+         
     def mudarFaixaDeAudio(self,arg):
-        print(arg)
+
 
         if arg == 0:
             self.reprodutorInstance.audio_set_track(-1)
@@ -256,6 +340,8 @@ class player():
         try:
             item = self.listaDeMidiaBanco[self.listaBanco.row(self.itemBanco)]
             self.listaDeMidia.append(item)
+            self.mediaList.add_media(item)
+            
             self.listaPlaylist.addItem(self.itemBanco.text())
         except Exception:
             print(Exception)
@@ -264,10 +350,15 @@ class player():
         self.itemBanco = arg
     
     def redimencionar(self,arg):
+        print(arg)
+        self.botaoRedimencionarEstado = arg
         if arg:
             self.telaSecundaria.setVisible(True)
             self.telaSecundaria.showFullScreen()
         else:
             self.telaSecundaria.setVisible(False)
 
-        
+    def playList(self,arg):
+        self.ativarPlayList = arg
+
+
