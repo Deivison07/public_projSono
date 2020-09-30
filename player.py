@@ -54,19 +54,13 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.mediaInstancia = self.player.media_list_new()
         
         self.reprodutorInstance2 = self.player.media_player_new()
-        
-
+    
         self.reprodutorInstance = self.player.media_player_new()
-<<<<<<< HEAD
-        self.reprodutorInstance.set_hwnd(self.frameVideo.winId())
-        self.reprodutorInstance.stop()
-=======
         
-
         if sys.platform.startswith('linux'): # para linux X Server
             self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
             self.reprodutorInstance.set_xwindow(self.frameVideo.winId())
->>>>>>> testePlaylist
+
 
         elif sys.platform == "win32": # para Windows
             self.reprodutorInstance2.set_hwnd(self.telaSecundaria.winId())
