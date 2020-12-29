@@ -116,11 +116,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
             del(self.listaDeMidia[item])
             self.mediaList.remove_index(item)
-            self.listaPlaylist.takeItem(item)
-            
+            self.listaPlaylist.takeItem(item)            
             print(self.listaDeMidia)
-
-
         except:
             print('não selecionou nenhum item')
                  
