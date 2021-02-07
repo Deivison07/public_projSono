@@ -10,8 +10,12 @@ class Main(player.Player):
         super().__init__()
         player.Player.__init__(self)
         self.bancoDeDados = Banco()
+    
+    def closeEvent(self, event): #evento de fechamento de programa
+        self.telaSecundaria.close()
         
         
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -21,5 +25,6 @@ if __name__ == "__main__":
     ui.move(monitor.left(), monitor.top())
     ui.show()
     sys.exit(app.exec_())
+
 
 

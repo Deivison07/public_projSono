@@ -2,7 +2,6 @@ import sqlite3
 import os
 class Banco():
 
-
     def __init__(self):
         
         dirbanco = os.path.normpath('banco/coletanea.sqlite')
@@ -53,6 +52,3 @@ class Banco():
 banco = banco()
 banco.inserirDados('testeGrave','video.mp4',1,'teste','teste de grave')
 '''
-
-
-    

@@ -26,7 +26,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.botaoVolume.clicked.connect(self.mutar)
         self.botaoPlay.clicked.connect(self.play)
         self.botaoStop.clicked.connect(self.stop)
-        self.slideVolume.sliderMoved.connect(self.volume)
+        #self.slideVolume.sliderMoved.connect(self.volume)
         self.slideMusica.sliderPressed.connect(self.slidePressed)
         self.slideMusica.sliderReleased.connect(self.slideReleased)
         self.slideMusica.sliderMoved.connect(self.mudartempo)
@@ -39,10 +39,13 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.botaoRedimencionar.clicked.connect(self.redimencionar)
         self.botaoPlayList.clicked.connect(self.playList)
         self.listaTrecho.setVisible(False)
+        self.botaoIniciarPlayback.clicked.connect(self.botao_iniciar_playback_clicado)
+
 
         self.slideMusicaPressionado = 0
         self.botaoRedimencionarEstado = 0
         self.ativarPlayList = False
+        self.botaoIniciarPB_clicado = False
         self.audios = False
         self.legendas = False
 
@@ -105,6 +108,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if self.arquivo[0] != '':
             self.listaDeMidia.append(self.arquivo[0])
+            print(self.arquivo[0])
             #self.mediaList.add_media(self.arquivo[0])
 
             self.arquivo = self.arquivo[0].split('/')
@@ -178,10 +182,12 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         self.reprodutorInstancePlayListExterno.play_item_at_index(index)
         self.reprodutorInstance2.audio_set_mute(True)
+        #self.reprodutorInstance.audio_set_mute(True)
+
 
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
-
+        
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
         icon1 = QtGui.QIcon()
@@ -224,6 +230,9 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.botaoPlay.setIcon(icon1)
         else:
             print('não play')
+            if self.botaoRedimencionarEstado:
+                self.telaSecundaria.setVisible(True)
+
             self.reprodutorInstance.play()
             self.reprodutorInstance2.play()
 
@@ -351,5 +360,10 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
     def playList(self,arg):
         self.ativarPlayList = arg
+
+    def botao_iniciar_playback_clicado(self,arg):
+        self.botaoIniciarPB_clicado = arg
+    
+
 
 
