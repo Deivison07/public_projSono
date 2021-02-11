@@ -21,10 +21,10 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -107,7 +107,7 @@
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;slide de tempo de midia&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string/>
                      </property>
                      <property name="pageStep">
                       <number>1</number>
@@ -137,6 +137,9 @@
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;play/pause&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -160,6 +163,9 @@
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -182,6 +188,9 @@
                       <widget class="QPushButton" name="botaoRedimencionar">
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ocultar Tela secundária&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
                        </property>
                        <property name="text">
                         <string/>
@@ -212,6 +221,9 @@
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ativa a playlist&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -240,6 +252,9 @@
                       <widget class="QPushButton" name="botaoIniciarPlayback">
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Iniciar com playback caso possivel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
                        </property>
                        <property name="text">
                         <string/>
@@ -378,6 +393,9 @@
                        <property name="toolTip">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mute&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -435,6 +453,9 @@
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adicionar midia externa&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius: 10px;</string>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -448,6 +469,9 @@
                   <widget class="QToolButton" name="botaoRemover">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remover item da lista&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius: 10px;</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -493,6 +517,68 @@
        <attribute name="title">
         <string>Coletânea</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="inputMask">
+           <string/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Pesquise:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="lista_coletanea">
+          <property name="iconSize">
+           <size>
+            <width>172</width>
+            <height>250</height>
+           </size>
+          </property>
+          <property name="movement">
+           <enum>QListView::Static</enum>
+          </property>
+          <property name="resizeMode">
+           <enum>QListView::Adjust</enum>
+          </property>
+          <property name="layoutMode">
+           <enum>QListView::Batched</enum>
+          </property>
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="viewMode">
+           <enum>QListView::IconMode</enum>
+          </property>
+          <property name="modelColumn">
+           <number>0</number>
+          </property>
+          <property name="uniformItemSizes">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string>item Teste1</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normalon>iconesColetanea/adoradores.jpg</normalon>
+            </iconset>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -559,6 +645,9 @@
            <widget class="QToolButton" name="botaoAdicionar_2">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adicionar a playList&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-radius: 10px;</string>
             </property>
             <property name="text">
              <string/>
