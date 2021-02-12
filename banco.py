@@ -33,20 +33,7 @@ class Banco():
         self.cursor.execute(sql)
         return self.cursor.fetchall()
             
-    def inserirDados(self,musica,endereco_musica,numero,album,trecho):
-        '''
-            parametros:
-                nome da musica
-                o endereço da musica
-                o numero caso seja hinario
-                album
-        '''
-        self.cursor.execute("""
-        INSERT INTO coletaneas (musica, endereco_musica, numero, album,trecho)
-        VALUES (?,?,?,?,?)
-        """,(musica,endereco_musica,numero,album,trecho))
-
-        self.banco.commit()
+    
 
 '''
 banco = banco()

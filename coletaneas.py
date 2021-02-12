@@ -7,7 +7,7 @@ class coletanea():
 
 		self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
 		self.lista_coletanea.clear()
-		self.add_item_coletanea('adoradores')
+		#self.add_item_coletanea('adoradores')
 		self.lista_coletanea.itemClicked.connect(self.coletanea_clicada)
 		
 		

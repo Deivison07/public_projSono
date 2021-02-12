@@ -4,5 +4,7 @@
 /teste*
 /env
 /musicas
+/banco/__pycache__
+.vscode
 
 

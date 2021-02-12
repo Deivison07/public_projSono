@@ -11,8 +11,6 @@ class Main(player.Player,coletaneas.coletanea):
         super().__init__()
         #player.Player.__init__(self)
         coletaneas.coletanea.__init__(self)
-      
-
         self.bancoDeDados = Banco()
 
         
