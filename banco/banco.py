@@ -39,7 +39,16 @@ class Banco():
         self.cursor.execute(sql)
         return self.cursor.fetchall()
 
-            
+
+    def selecionarColetanea(self,pesquisa):
+        sql = ("""
+                SELECT * FROM coletaneas
+                WHERE album == '{}'  order by musica
+                """.format(pesquisa))
+
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
+                
     
 
 '''

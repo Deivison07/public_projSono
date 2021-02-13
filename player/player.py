@@ -2,7 +2,7 @@ import sys
 import vlc 
 from time import sleep
 from PyQt5 import QtWidgets,QtGui,QtCore
-from TelaInicial import Ui_MainWindow
+from player.TelaInicial import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QTimer
 

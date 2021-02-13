@@ -1,24 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
-from TelaInicial import Ui_MainWindow
-import player
-from banco import Banco
-import coletaneas
+from player.player import Player
+from banco.banco import Banco
+from coletanea.coletaneas import coletanea
 
-class Main(player.Player,coletaneas.coletanea):
+class Main(Player,coletanea):
     
     def __init__(self):
         super().__init__()
         self.bancoDeDados = Banco()
-        #player.Player.__init__(self)
-        coletaneas.coletanea.__init__(self)
-        
-
+        coletanea.__init__(self)
         
     def closeEvent(self, event): #evento de fechamento de programa
         self.telaSecundaria.close()
-        
-        
         
 
 if __name__ == "__main__":

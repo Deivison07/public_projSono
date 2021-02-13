@@ -1,6 +1,7 @@
 from PyQt5 import QtGui, QtWidgets, QtCore 
 #self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
 from coletanea.telaColetanea_controler import telaCole
+import os
 
 class coletanea():
 	"""docstring for coletanea"""
@@ -9,7 +10,6 @@ class coletanea():
 		self.instanciaTela = telaCole()
 		#self.instanciaTela.listWidget.itemClicked.connect(self.passou)
 		self.instanciaTela.listWidget.itemDoubleClicked.connect(self.reproduzirColetanea)
-
 
 		self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
 		self.lista_coletanea.clear()
@@ -22,19 +22,30 @@ class coletanea():
 		
 		
 	def add_item_coletanea(self,nome):
-
+		
 	    item = QtWidgets.QListWidgetItem()
 	    icone = QtGui.QIcon()
-	    icone.addPixmap(QtGui.QPixmap(f"iconesColetanea/{nome}.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+	    icone.addPixmap(QtGui.QPixmap(os.path.normpath(f"iconesColetanea/{nome}.jpg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
 	    item.setIcon(icone)
 	    item.setText(f'{nome}'.upper())
 	    self.lista_coletanea.addItem(item)
+	    self.imagem = nome
 
 	def coletanea_clicada(self,item):
+		self.lista_coletanea_nome = []
+		self.lista_coletanea_endereco = []
+		self.lista_coletanea = self.bancoDeDados.selecionarColetanea(pesquisa= item.text())
+		
+		for listaItem in self.lista_coletanea:
+			self.lista_coletanea_nome.append(str(listaItem[1]))
+			self.lista_coletanea_endereco.append(listaItem[2])
+
+		self.instanciaTela.montarTelaColetanea(self.imagem,self.lista_coletanea_nome)
 		self.instanciaTela.show()
 
-	def reproduzirColetanea(self):
-		self.reproduzirSimples('teste.webm')
+	def reproduzirColetanea(self,item):
+		index = self.instanciaTela.listWidget.row(item)
+		self.reproduzirSimples(self.lista_coletanea_endereco[index])
 
 		
     
