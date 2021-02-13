@@ -9,13 +9,15 @@ class Main(player.Player,coletaneas.coletanea):
     
     def __init__(self):
         super().__init__()
+        self.bancoDeDados = Banco()
         #player.Player.__init__(self)
         coletaneas.coletanea.__init__(self)
-        self.bancoDeDados = Banco()
+        
 
         
     def closeEvent(self, event): #evento de fechamento de programa
         self.telaSecundaria.close()
+        
         
         
 

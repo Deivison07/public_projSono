@@ -1,7 +1,7 @@
 import sys
 import vlc 
 from time import sleep
-from PyQt5 import QtWidgets,QtGui 
+from PyQt5 import QtWidgets,QtGui,QtCore
 from TelaInicial import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QTimer
@@ -108,8 +108,6 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if self.arquivo[0] != '':
             self.listaDeMidia.append(self.arquivo[0])
-            print(self.arquivo[0])
-            #self.mediaList.add_media(self.arquivo[0])
 
             self.arquivo = self.arquivo[0].split('/')
             self.listaPlaylist.addItem(str(self.arquivo[-1]))
@@ -164,7 +162,21 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.texto.setText('Execultando modo Single')      
         self.reprodutor(0)  
 
+    def reproduzirSimples(self,midia):
+        self.contadorDeMidia = 1
+        cont = self.mediaList.count()
+
+        for x in range(cont):
+            self.mediaList.remove_index(0)
+
+        self.texto.setText('Execultando modo Single') 
+        self.mediaList.add_media(midia)
+        self.reprodutor(0)   
+
     def reprodutor(self,index=0):
+
+        if self.botaoRedimencionarEstado == True:
+            self.telaSecundaria.setVisible(True)
         
         self.reprodutorInstancePlayList.play_item_at_index(index)
         
@@ -185,8 +197,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         #self.reprodutorInstance.audio_set_mute(True)
 
 
-        if self.botaoRedimencionarEstado == True:
-            self.telaSecundaria.setVisible(True)
+
         
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
@@ -197,6 +208,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
         
+            #self.telaSecundaria.showMaximized() 
     def informacaoMidia(self):
         self.comboMusica.clear()
 
@@ -339,12 +351,17 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
     def itemDoBancoParaPlaylist(self):
         try:
             item = self.listaDeMidiaBanco[self.listaBanco.row(self.itemBanco)]
-            self.listaDeMidia.append(item)
-            self.mediaList.add_media(item)
-            
-            self.listaPlaylist.addItem(self.itemBanco.text())
+            nome = self.itemBanco.text()
+            self.adicionarMidia(nome, item)
+
         except Exception:
             print(Exception)
+
+    def adicionarMidia(self, nome, midia):
+            self.listaDeMidia.append(midia)
+            self.mediaList.add_media(midia)
+            self.listaPlaylist.addItem(nome)
+
         
     def itemClicadoBanco(self,arg):
         self.itemBanco = arg

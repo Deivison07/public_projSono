@@ -32,6 +32,13 @@ class Banco():
 
         self.cursor.execute(sql)
         return self.cursor.fetchall()
+
+    def pesquisa_album(self):
+
+        sql = (""" SELECT DISTINCT album FROM coletaneas order by id """)
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
+
             
     
 
