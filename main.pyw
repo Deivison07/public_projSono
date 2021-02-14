@@ -4,15 +4,12 @@ from player.player import Player
 from banco.banco import Banco
 from coletanea.coletaneas import coletanea
 
-
 class Main(Player,coletanea):
     
     def __init__(self):
         super().__init__()
         self.bancoDeDados = Banco()
         coletanea.__init__(self)
-        
-        #self.reproduzirSimples(best.url)
         
     def closeEvent(self, event): #evento de fechamento de programa
         self.telaSecundaria.close()

@@ -15,7 +15,6 @@ class telaCole(QtWidgets.QWidget,Ui_Form):
     	self.label.setPixmap(QtGui.QPixmap(path))
 
     	#lista
-    	print(lista)
     	self.listWidget.clear()
     	for item in lista:
     		self.listWidget.addItem(str(item))

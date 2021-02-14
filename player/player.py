@@ -3,8 +3,9 @@ import vlc
 from time import sleep
 from PyQt5 import QtWidgets,QtGui,QtCore
 from player.TelaInicial import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QDesktopWidget
+from PyQt5.QtWidgets import QApplication, QDesktopWidget,QMessageBox
 from PyQt5.QtCore import pyqtSlot, QTimer
+import pafy 
 
     
 class Player(QtWidgets.QMainWindow,Ui_MainWindow):
@@ -16,6 +17,9 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.telaSecundaria = QtWidgets.QWidget()
         self.telaSecundaria.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.frameVideo.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.inputYoutube = QtWidgets.QInputDialog()
+        self.inputYoutube.textValueSelected.connect(self.linkMidia)
+
 
         #Tela principal
         self.listaDeMidia = []
@@ -40,7 +44,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.botaoPlayList.clicked.connect(self.playList)
         self.listaTrecho.setVisible(False)
         self.botaoIniciarPlayback.clicked.connect(self.botao_iniciar_playback_clicado)
-
+        self.botaoYoutube.clicked.connect(self.adicionarFromYoutube)
 
         self.slideMusicaPressionado = 0
         self.botaoRedimencionarEstado = 0
@@ -52,7 +56,6 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #reprodutor
         self.player = vlc.Instance()
-        
         self.mediaList = self.player.media_list_new()
         self.mediaInstancia = self.player.media_list_new()
         
@@ -91,7 +94,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.telaSecundaria.move(monitor.left(), monitor.top()) #informando para a tela secundaria qual monitor aparecerá
         
         #Eventos
-        event_manager = self.reprodutorInstance.event_manager()
+        event_manager = self.reprodutorInstance2.event_manager()
         event_manager.event_attach(vlc.EventType.MediaPlayerPlaying, self.reproduzindo)
         event_manager.event_attach(vlc.EventType.MediaPlayerMuted, self.mute)
         event_manager.event_attach(vlc.EventType.MediaPlayerPositionChanged,self.tempo)
@@ -178,7 +181,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
         
-        self.reprodutorInstancePlayList.play_item_at_index(index)
+        
         
         if sys.platform.startswith('linux'): # para linux X Server
             self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
@@ -193,8 +196,11 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.reprodutorInstance2.set_nsobject(int(self.telaSecundaria.winId()))
 
         self.reprodutorInstancePlayListExterno.play_item_at_index(index)
-        self.reprodutorInstance2.audio_set_mute(True)
-        #self.reprodutorInstance.audio_set_mute(True)
+
+        self.reprodutorInstancePlayList.play_item_at_index(index)
+        self.reprodutorInstance.audio_set_mute(True)
+        self.reprodutorInstance2.audio_set_mute(False)
+        
 
 
 
@@ -212,8 +218,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
     def informacaoMidia(self):
         self.comboMusica.clear()
 
-        self.audios = self.reprodutorInstance.audio_get_track_description()
-        self.legendas = self.reprodutorInstance.video_get_spu_description()
+        self.audios = self.reprodutorInstance2.audio_get_track_description()
+        self.legendas = self.reprodutorInstance2.video_get_spu_description()
 
         audio = [list(Tuple) for Tuple in self.audios]
         print(audio)
@@ -234,12 +240,13 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         
     def play(self):
 
-        if self.reprodutorInstance.is_playing():
+        if self.reprodutorInstance2.is_playing():
             self.reprodutorInstance.pause()
             self.reprodutorInstance2.pause()
             icon1 = QtGui.QIcon()
             icon1.addPixmap(QtGui.QPixmap("icones/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.botaoPlay.setIcon(icon1)
+
         else:
             print('não play')
             if self.botaoRedimencionarEstado:
@@ -272,18 +279,20 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icones/iconfinder-volume-mute-sound-speaker-audio-4593175_122269.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoVolume.setIcon(icon1)
+
+        
             
     def mutar(self):
-        if self.reprodutorInstance.audio_get_mute():
-            self.reprodutorInstance.audio_set_mute(False)
+        if self.reprodutorInstance2.audio_get_mute():
+            self.reprodutorInstance2.audio_set_mute(False)
             icon1 = QtGui.QIcon()
             icon1.addPixmap(QtGui.QPixmap("icones/iconfinder-volume-max-sound-speaker-audio-4593170_122277.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             self.botaoVolume.setIcon(icon1)
         else:
-            self.reprodutorInstance.audio_set_mute(True)
+            self.reprodutorInstance2.audio_set_mute(True)
             
     def volume(self,arg):
-        self.reprodutorInstance.audio_set_volume(arg)
+        self.reprodutorInstance2.audio_set_volume(arg)
     
     def tempo(self,event):
         if self.slideMusicaPressionado == False:
@@ -321,8 +330,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.reprodutorInstance2.audio_set_track(-1) # é usado -1 porque o vlc usa esse indice para desabilitar o audio
 
         else:
-            self.reprodutorInstance.audio_set_track(arg)
-            self.reprodutorInstance2.audio_set_mute(True)
+            self.reprodutorInstance2.audio_set_track(arg)
+            self.reprodutorInstance.audio_set_mute(True)
     
     def mudarFaixaDeLegenda(self,arg):
 
@@ -362,7 +371,13 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
             self.mediaList.add_media(midia)
             self.listaPlaylist.addItem(nome)
 
-        
+    def adicionarMidiaYoutube(self, nome, midia):
+
+            self.listaDeMidia.append(str(midia))
+            self.mediaList.add_media(midia)
+            self.listaPlaylist.addItem(nome)
+
+
     def itemClicadoBanco(self,arg):
         self.itemBanco = arg
     
@@ -381,6 +396,30 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
     def botao_iniciar_playback_clicado(self,arg):
         self.botaoIniciarPB_clicado = arg
     
+    def linkMidia(self,link):
+        
+        try:
+            url = link
+            video = pafy.new(url)
+            titulo = video.title
+            best = video.getbest()
+            self.adicionarMidia(titulo,best.url)           
+            
+        except Exception:
+            mensagem = QMessageBox()
+            mensagem.setWindowTitle('link invalido')
+            mensagem.setText('link invalido informe um link do youtube')
+            mensagem.setIcon(QMessageBox.Critical)
+            mensagem.exec_() 
+
+    def adicionarFromYoutube(self):
+        self.inputYoutube.setWindowTitle('youtube')
+        self.inputYoutube.setLabelText('informe o link')
+        self.inputYoutube.show()
+
+
+
+
 
 
 

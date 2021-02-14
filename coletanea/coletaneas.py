@@ -29,18 +29,18 @@ class coletanea():
 	    item.setIcon(icone)
 	    item.setText(f'{nome}'.upper())
 	    self.lista_coletanea.addItem(item)
-	    self.imagem = nome
+	    
 
 	def coletanea_clicada(self,item):
 		self.lista_coletanea_nome = []
 		self.lista_coletanea_endereco = []
 		self.lista_coletanea = self.bancoDeDados.selecionarColetanea(pesquisa= item.text())
-		
+		imagem = item.text()
 		for listaItem in self.lista_coletanea:
 			self.lista_coletanea_nome.append(str(listaItem[1]))
 			self.lista_coletanea_endereco.append(listaItem[2])
 
-		self.instanciaTela.montarTelaColetanea(self.imagem,self.lista_coletanea_nome)
+		self.instanciaTela.montarTelaColetanea(imagem,self.lista_coletanea_nome)
 		self.instanciaTela.show()
 
 	def reproduzirColetanea(self,item):

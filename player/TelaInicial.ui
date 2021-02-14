@@ -483,6 +483,23 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="QToolButton" name="botaoYoutube">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remover item da lista&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius: 10px;</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icones/remove-symbol_icon-icons.com_73439.ico</normaloff>icones/remove-symbol_icon-icons.com_73439.ico</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="horizontalSpacer_3">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
