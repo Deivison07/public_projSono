@@ -12,7 +12,8 @@ class Main(Player,coletanea):
         self.bancoDeDados = Banco()
         coletanea.__init__(self)
         
-        #self.reproduzirSimples(best.url)
+
+
         
     def closeEvent(self, event): #evento de fechamento de programa
         self.telaSecundaria.close()

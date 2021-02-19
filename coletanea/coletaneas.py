@@ -9,7 +9,7 @@ class coletanea():
 
 		self.instanciaTela = telaCole()
 		#self.instanciaTela.listWidget.itemClicked.connect(self.passou)
-		self.instanciaTela.listWidget.itemDoubleClicked.connect(self.reproduzirColetanea)
+		self.instanciaTela.listaColetanea.itemDoubleClicked.connect(self.reproduzirColetanea)
 
 		self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
 		self.lista_coletanea.clear()
@@ -32,6 +32,7 @@ class coletanea():
 	    
 
 	def coletanea_clicada(self,item):
+
 		self.lista_coletanea_nome = []
 		self.lista_coletanea_endereco = []
 		self.lista_coletanea = self.bancoDeDados.selecionarColetanea(pesquisa= item.text())
@@ -44,8 +45,9 @@ class coletanea():
 		self.instanciaTela.show()
 
 	def reproduzirColetanea(self,item):
-		index = self.instanciaTela.listWidget.row(item)
+		index = self.instanciaTela.listaColetanea.row(item)
 		self.reproduzirSimples(self.lista_coletanea_endereco[index])
+
 
 		
     

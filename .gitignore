@@ -1,5 +1,7 @@
 *mp4
-/__pycache__
+*pyc
+*.pyc
+
 /Aegisub*
 /teste*
 /env
