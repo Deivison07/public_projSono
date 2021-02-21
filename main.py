@@ -13,8 +13,10 @@ class Main(Player,coletanea):
         coletanea.__init__(self)
         
 
-
+    def digo(self):
+        print('disse')
         
+                
     def closeEvent(self, event): #evento de fechamento de programa
         self.telaSecundaria.close()
         

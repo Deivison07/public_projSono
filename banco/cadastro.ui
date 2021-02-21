@@ -20,6 +20,27 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Arquivo:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="campo_arquivo"/>
+       </item>
+       <item>
+        <widget class="QToolButton" name="botao_arquivo">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="label">
@@ -82,27 +103,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Arquivo:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="campo_arquivo"/>
-       </item>
-       <item>
-        <widget class="QToolButton" name="botao_arquivo">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>

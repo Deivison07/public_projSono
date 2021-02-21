@@ -49,15 +49,16 @@ class Main(QtWidgets.QWidget,Ui_form_cadastrar):
         except Exception:
             mensagem = QMessageBox()
             mensagem.setWindowTitle('Erro ao salvar')
-            mensagem.setText('Erro inesperado, verifique se algum campo não foi preenchido')
+            mensagem.setText('Erro inesperado, verifique se algum campo não foi preenchido\n ou a midia selecionada foi sobreescrevida')
             mensagem.setIcon(QMessageBox.Critical)
             mensagem.exec_()
+            
 
 
     
     def save(self):
         nome = self.campo_nome.text()
-        self.album  = self.campo_album.text()
+        self.album  = self.campo_album.text().upper()
         numero = self.numero_musica.value()
         self.arquivo = self.campo_arquivo.text()
         texto = self.campo_texto.toPlainText()
@@ -79,6 +80,13 @@ class Main(QtWidgets.QWidget,Ui_form_cadastrar):
         arquivo = QtWidgets.QFileDialog.getOpenFileName()
         if arquivo[0] != '':
             self.campo_arquivo.setText(str(arquivo[0]))
+            nome = arquivo[0]
+            nome = nome.split('/')
+            nome = nome[-1]
+            nome = nome.split('.')
+            nome = nome[0]
+
+            self.campo_nome.setText(nome)
     
     def prepara_arquivos(self,album,arquivo):
 

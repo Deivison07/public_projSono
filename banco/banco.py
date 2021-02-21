@@ -27,7 +27,7 @@ class Banco():
 
         sql = ("""
                 SELECT * FROM coletaneas
-                WHERE {} LIKE'%{}%' order by id
+                WHERE {} LIKE'%{}%' order by numero
                 """.format(tipo,pesquisa))
 
         self.cursor.execute(sql)
@@ -43,7 +43,7 @@ class Banco():
     def selecionarColetanea(self,pesquisa):
         sql = ("""
                 SELECT * FROM coletaneas
-                WHERE album == '{}'  order by musica
+                WHERE album == '{}'  order by numero
                 """.format(pesquisa))
 
         self.cursor.execute(sql)

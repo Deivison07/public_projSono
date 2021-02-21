@@ -232,19 +232,25 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.addLayout(self.verticalLayout_9)
         self.tabWidget.addTab(self.tab, "")
 
-
         self.tabColetaneas = QtWidgets.QWidget()
 
-
         self.tabColetaneas.setObjectName("tabColetaneas")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.tabColetaneas)
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.tabColetaneas)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.boxListaColetanea = QtWidgets.QGroupBox(self.tabColetaneas)
+        self.boxListaColetanea.setTitle("")
+        self.boxListaColetanea.setCheckable(False)
+        self.boxListaColetanea.setObjectName("boxListaColetanea")
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.boxListaColetanea)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.lineEdit = QtWidgets.QLineEdit(self.tabColetaneas)
+        self.lineEdit = QtWidgets.QLineEdit(self.boxListaColetanea)
         self.lineEdit.setInputMask("")
         self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
         self.verticalLayout_4.addWidget(self.lineEdit)
-        self.lista_coletanea = QtWidgets.QListWidget(self.tabColetaneas)
+        self.lista_coletanea = QtWidgets.QListWidget(self.boxListaColetanea)
         self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
         self.lista_coletanea.setMovement(QtWidgets.QListView.Static)
         self.lista_coletanea.setResizeMode(QtWidgets.QListView.Adjust)
@@ -260,17 +266,39 @@ class Ui_MainWindow(object):
         item.setIcon(icon8)
         self.lista_coletanea.addItem(item)
         self.verticalLayout_4.addWidget(self.lista_coletanea)
-        
-        
-        #===========================================================================#
+
+        #aqui
+
+        #=======================================================================#
 
         self.horizontalLayout_2Coletanea = QtWidgets.QHBoxLayout(self.tabColetaneas)
         self.horizontalLayout_2Coletanea.setObjectName("horizontalLayout_2Coletanea")
         self.boxColetanea = QtWidgets.QGroupBox(self.tabColetaneas)
         self.boxColetanea.setTitle("")
         self.boxColetanea.setObjectName("boxColetanea")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.boxColetanea)
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.boxColetanea.setMinimumSize(QtCore.QSize(603, 524))
+        self.boxColetanea.setMaximumSize(QtCore.QSize(603, 524))
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.boxColetanea)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.groupBox = QtWidgets.QGroupBox(self.boxColetanea)
+        self.groupBox.setTabletTracking(False)
+        self.groupBox.setFlat(False)
+        self.groupBox.setObjectName("groupBox")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.pushButton = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.setText('<- Voltar')
+        self.horizontalLayout.addWidget(self.pushButton)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
+        self.verticalLayout.addWidget(self.groupBox)
         self.horizontalLayoutColetanea = QtWidgets.QHBoxLayout()
         self.horizontalLayoutColetanea.setObjectName("horizontalLayoutColetanea")
         self.horizontalLayoutColetanea_2 = QtWidgets.QHBoxLayout()
@@ -305,22 +333,21 @@ class Ui_MainWindow(object):
         self.listaColetanea.addItem(item)
         self.verticalLayoutColetanea.addWidget(self.listaColetanea)
         self.horizontalLayoutColetanea.addLayout(self.verticalLayoutColetanea)
-        self.horizontalLayout_4.addLayout(self.horizontalLayoutColetanea)
-        self.verticalLayout_4.addWidget(self.boxColetanea)
+        self.verticalLayout.addLayout(self.horizontalLayoutColetanea)
+        self.horizontalLayout_2Coletanea.addWidget(self.boxColetanea)
+        self.verticalLayout_11.addWidget(self.boxColetanea)
 
-        #=======================================================================#
+        self.verticalLayout_10.addLayout(self.verticalLayout_4)
 
-        
+        self.verticalLayout_11.addWidget(self.boxListaColetanea)
+
+        self.boxColetanea.close()
+
+        #=========================================================================#
+
+
 
         self.tabWidget.addTab(self.tabColetaneas, "")
-
-        self.lineEdit.close()
-        self.lista_coletanea.close()
-        #self.boxColetanea.close()
-
-
-
-
         self.horizontalLayout_12.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -372,7 +399,7 @@ class Ui_MainWindow(object):
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget_2)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.comboMusica.setCurrentIndex(-1)
         self.comboLegenda.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

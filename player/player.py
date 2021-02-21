@@ -3,7 +3,7 @@ import vlc
 from time import sleep
 from PyQt5 import QtWidgets,QtGui,QtCore
 from player.TelaInicial import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QDesktopWidget,QMessageBox
+from PyQt5.QtWidgets import QApplication, QDesktopWidget, QMessageBox, QShortcut
 from PyQt5.QtCore import pyqtSlot, QTimer
 import pafy 
 
@@ -17,6 +17,8 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.telaSecundaria = QtWidgets.QWidget()
         self.telaSecundaria.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.frameVideo.setStyleSheet("background-color: rgb(0, 0, 0);")
+
+        # dialogo para o link do youtube
         self.inputYoutube = QtWidgets.QInputDialog()
         self.inputYoutube.textValueSelected.connect(self.linkMidia)
 
@@ -52,6 +54,16 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.botaoIniciarPB_clicado = False
         self.audios = False
         self.legendas = False
+
+        #atalhos no techado
+        atalhoPlay = QShortcut(QtGui.QKeySequence("space"), self)
+        atalhoPlay.activated.connect(self.play)
+
+        atalhoStop = QShortcut(QtGui.QKeySequence("s"), self)
+        atalhoStop.activated.connect(self.stop)
+
+        atalhoSairColetanea = QShortcut(QtGui.QKeySequence("esc"), self)
+        atalhoSairColetanea.activated.connect(self.voltar_coletanea)
 
 
         #reprodutor
@@ -166,6 +178,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.reprodutor(0)  
 
     def reproduzirSimples(self,midia):
+        
         self.contadorDeMidia = 1
         cont = self.mediaList.count()
 
@@ -180,8 +193,6 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
-        
-        
         
         if sys.platform.startswith('linux'): # para linux X Server
             self.reprodutorInstance2.set_xwindow(self.telaSecundaria.winId())
@@ -201,9 +212,6 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.reprodutorInstance.audio_set_mute(True)
         self.reprodutorInstance2.audio_set_mute(False)
         
-
-
-
         
     def reproduzindo(self,event):
         self.botaoPlay.setEnabled(True)
@@ -213,8 +221,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.informacaoMidia()
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
-        
-            #self.telaSecundaria.showMaximized() 
+
     def informacaoMidia(self):
         self.comboMusica.clear()
 
