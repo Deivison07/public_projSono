@@ -47,7 +47,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         self.listaTrecho.setVisible(False)
         self.botaoIniciarPlayback.clicked.connect(self.botao_iniciar_playback_clicado)
         self.botaoYoutube.clicked.connect(self.adicionarFromYoutube)
-
+        
         self.slideMusicaPressionado = 0
         self.botaoRedimencionarEstado = 0
         self.ativarPlayList = False
@@ -219,6 +219,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
         icon1.addPixmap(QtGui.QPixmap("icones/pause.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.botaoPlay.setIcon(icon1)
         self.informacaoMidia()
+        self.reprodutorInstance.audio_set_mute(True)
         if self.botaoRedimencionarEstado == True:
             self.telaSecundaria.setVisible(True)
 
@@ -427,6 +428,7 @@ class Player(QtWidgets.QMainWindow,Ui_MainWindow):
 
 
 
+ 
 
 
 

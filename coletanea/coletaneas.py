@@ -10,6 +10,8 @@ class coletanea():
 		self.instanciaTela = telaCole()
 		#self.instanciaTela.listWidget.itemClicked.connect(self.passou)
 		self.listaColetanea.itemActivated.connect(self.reproduzirColetanea)
+		self.lineEdit.returnPressed.connect(self.buscarAlbum)
+
 
 		self.lista_coletanea.setIconSize(QtCore.QSize(172, 250))
 		self.lista_coletanea.clear()
@@ -21,7 +23,8 @@ class coletanea():
 		
 		for item_coletanea in self.lista_resultado_coletaneas:
 			self.add_item_coletanea(item_coletanea)
-		
+
+  
 		
 	def add_item_coletanea(self,nome):
 		
@@ -86,6 +89,17 @@ class coletanea():
 		self.listaColetanea.clear()
 		for item in lista:
 			self.listaColetanea.addItem(str(item))
+
+	
+	def buscarAlbum(self):
+		busca = self.lineEdit.text()
+		
+		self.lista_coletanea.clear()
+		self.lista_resultado_coletaneas = [ item[0] for item in self.bancoDeDados.pesquisa_album(busca)]
+  
+		for item_coletanea in self.lista_resultado_coletaneas:
+			self.add_item_coletanea(item_coletanea)
+
 
 
     
